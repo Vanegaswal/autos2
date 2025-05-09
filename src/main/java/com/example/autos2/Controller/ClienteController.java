@@ -1,0 +1,45 @@
+package com.example.autos2.Controller;
+
+import com.example.autos2.Service.ICliente;
+import com.example.autos2.entiti.Clienteentiti;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("api/clientes")
+
+public class ClienteController {
+    @Autowired
+    private ICliente clienteService;
+
+    @GetMapping
+    public List<Clienteentiti> listarClientes() {
+        return clienteService.obtenerTodosLosClientes();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Clienteentiti> obtenerCliente(@PathVariable Long id) {
+        return clienteService.obtenerClientePorId(id);
+    }
+
+    @PostMapping
+    public Clienteentiti crearCliente(@RequestBody Clienteentiti cliente) {
+        return clienteService.guardarCliente(cliente);
+    }
+
+    @PutMapping("/{id}")
+    public Clienteentiti actualizarCliente(@PathVariable Long id, @RequestBody Clienteentiti cliente) {
+        cliente.setId(id);
+        return clienteService.guardarCliente(cliente);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarCliente(@PathVariable Long id) {
+        clienteService.eliminarCliente(id);
+    }
+
+
+}
