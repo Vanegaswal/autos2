@@ -1,0 +1,73 @@
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefono VARCHAR(20),
+    direccion TEXT,
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE vehiculos (
+    id_vehiculo INT AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    anio INT NOT NULL,
+    tipo_vehiculo ENUM('SUV', 'Sedán', 'Deportivo', 'Camioneta', 'Furgoneta', 'Coupé', 'Convertible') NOT NULL,
+    capacidad INT NOT NULL,
+    color VARCHAR(30),
+    precio_por_dia DECIMAL(10, 2) NOT NULL,
+    estado ENUM('Disponible', 'Reservado', 'Mantenimiento', 'Inactivo') DEFAULT 'Disponible',
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_vehiculo INT,
+    fecha_inicio DATETIME NOT NULL,
+    fecha_fin DATETIME NOT NULL,
+    estado_reserva ENUM('Pendiente', 'Confirmada', 'Completada', 'Cancelada') DEFAULT 'Pendiente',
+    total DECIMAL(10, 2),
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_vehiculo) REFERENCES vehiculos(id_vehiculo)
+    
+);
+
+CREATE TABLE pagos (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_reserva INT,
+    cantidad DECIMAL(10, 2) NOT NULL,
+    fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP,
+    metodo_pago ENUM('Tarjeta de crédito', 'Transferencia bancaria', 'Efectivo', 'Paypal') NOT NULL,
+    estado_pago ENUM('Pendiente', 'Pagado', 'Fallido') DEFAULT 'Pendiente',
+    FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva)
+);
+CREATE TABLE historial_mantenimiento (
+    id_mantenimiento INT AUTO_INCREMENT PRIMARY KEY,
+    id_vehiculo INT,
+    descripcion TEXT NOT NULL,
+    fecha_mantenimiento DATETIME DEFAULT CURRENT_TIMESTAMP,
+    tipo_mantenimiento ENUM('Preventivo', 'Correctivo') NOT NULL,
+    costo DECIMAL(10, 2),
+    FOREIGN KEY (id_vehiculo) REFERENCES vehiculos(id_vehiculo)
+);
+
+CREATE TABLE sanciones (
+    id_sancion INT AUTO_INCREMENT PRIMARY KEY,
+    id_reserva INT,
+    descripcion TEXT NOT NULL,
+    monto DECIMAL(10, 2) NOT NULL,
+    fecha_sancion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva)
+);
+
+CREATE TABLE promociones (
+    id_promocion INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_promocion VARCHAR(50) UNIQUE NOT NULL,
+    descripcion TEXT NOT NULL,
+    descuento_porcentaje DECIMAL(5, 2),
+    fecha_inicio DATETIME NOT NULL,
+    fecha_fin DATETIME NOT NULL
+);
