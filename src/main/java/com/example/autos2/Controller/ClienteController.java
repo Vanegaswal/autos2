@@ -1,8 +1,10 @@
 package com.example.autos2.Controller;
 
+import com.example.autos2.Paidload.MessageResponse;
 import com.example.autos2.Service.ICliente;
 import com.example.autos2.entiti.Clienteentiti;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +18,23 @@ public class ClienteController {
     private ICliente clienteService;
 
     @GetMapping
+    public ResponseEntity<MessageResponse<List<Clienteentiti>>> listarClientes() {
+        List<Clienteentiti> clientes = clienteService.obtenerTodosLosClientes();
+
+        return ResponseEntity.ok(
+                MessageResponse.<List<Clienteentiti>>builder()
+                        .message("Lista de clientes obtenida exitosamente")
+                        .data(clientes)
+                        .build()
+        );
+    }
+
+
+
+    /*@GetMapping
     public List<Clienteentiti> listarClientes() {
         return clienteService.obtenerTodosLosClientes();
-    }
+    }*/
 
     @GetMapping("/{id}")
     public Optional<Clienteentiti> obtenerCliente(@PathVariable Long id) {
