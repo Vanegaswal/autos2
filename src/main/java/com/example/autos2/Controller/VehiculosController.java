@@ -3,6 +3,7 @@ package com.example.autos2.Controller;
 
 import com.example.autos2.Service.IVehiculo;
 import com.example.autos2.entiti.Vehiculosentiti;
+import com.example.autos2.entiti.dto.Vehiculosxmarca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +46,10 @@ public class VehiculosController {
     @DeleteMapping("/{id}")
     public void eliminarVehiculo(@PathVariable Long id) {
         vehiculoService.eliminarVehiculo(id);
+    }
+
+    @GetMapping("/estadisticas/marcas")
+    public List<Vehiculosxmarca> contarVehiculosxmarca() {
+        return vehiculoService.contarVehiculosxmarca();
     }
 }
