@@ -3,6 +3,7 @@ package com.example.autos2.Service;
 
 import com.example.autos2.Repository.VehiculosRepository;
 import com.example.autos2.entiti.Vehiculosentiti;
+import com.example.autos2.entiti.dto.Vehiculosxmarca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,10 @@ public class VehiculosImpl implements IVehiculo {
         return vehiculoRepository.findAll().stream()
                 .filter(Vehiculosentiti::getDisponible)
                 .toList();
+    }
+
+    @Override
+    public List<Vehiculosxmarca> contarVehiculosxmarca() {
+        return vehiculoRepository.contarvehiculosxmarca();
     }
 }
