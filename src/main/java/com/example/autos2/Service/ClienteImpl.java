@@ -37,4 +37,11 @@ public class ClienteImpl implements ICliente {
     public void eliminarCliente(Long id) {
         clienteRepository.deleteById(id);
     }
+
+    //Nuevo Metodo Ordenar Clientes
+    @Override
+    public List<Clienteentiti> obtenerClientesOrdenadosPorNombre() {
+        return clienteRepository.findAllByOrderByNombreAsc();
+    }
+
 }

@@ -11,4 +11,7 @@ public interface ICliente  {
     Optional<Clienteentiti> obtenerClientePorId(Long id);
     Clienteentiti guardarCliente(Clienteentiti cliente);
     void eliminarCliente(Long id);
+
+    //Nuevo Metodo Ordenar Clientes
+    List<Clienteentiti> obtenerClientesOrdenadosPorNombre();
 }

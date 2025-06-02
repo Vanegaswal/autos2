@@ -3,6 +3,9 @@ package com.example.autos2.entiti;
 import jakarta.persistence.*;
 
 import lombok.*;
+
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 @Getter @Setter
@@ -17,4 +20,7 @@ public class Clienteentiti {
     private String nombre;
     private String correo;
     private String telefono;
+
+
 }
+

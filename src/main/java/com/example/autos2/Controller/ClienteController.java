@@ -40,6 +40,12 @@ public class ClienteController {
     public Optional<Clienteentiti> obtenerCliente(@PathVariable Long id) {
         return clienteService.obtenerClientePorId(id);
     }
+    //Nuevo Metodo Ordenar Clientes
+    @GetMapping("/ordenados")
+    public ResponseEntity<List<Clienteentiti>> obtenerClientesOrdenados() {
+        List<Clienteentiti> clientesOrdenados = clienteService.obtenerClientesOrdenadosPorNombre();
+        return ResponseEntity.ok(clientesOrdenados);
+    }
 
     @PostMapping
     public Clienteentiti crearCliente(@RequestBody Clienteentiti cliente) {
