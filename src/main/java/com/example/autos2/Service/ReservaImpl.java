@@ -2,9 +2,11 @@ package com.example.autos2.Service;
 
 import com.example.autos2.Repository.ReservaRepository;
 import com.example.autos2.entiti.Reservaentiti;
+import com.example.autos2.entiti.dto.ReservaActivaHoyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,4 +42,9 @@ public class ReservaImpl implements IReserva {
                 .filter(reserva -> reserva.getCliente().getId().equals(clienteId))
                 .toList();
     }
+    @Override
+    public List<ReservaActivaHoyDTO> obtenerReservasActivasHoy() {
+        return reservaRepository.obtenerReservasActivasHoy(LocalDate.now());
+    }
 }
+

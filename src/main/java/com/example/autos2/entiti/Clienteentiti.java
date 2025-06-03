@@ -16,7 +16,6 @@ public class Clienteentiti {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String correo;
     private String telefono;

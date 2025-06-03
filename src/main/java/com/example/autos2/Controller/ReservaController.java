@@ -2,6 +2,7 @@ package com.example.autos2.Controller;
 
 import com.example.autos2.Service.IReserva;
 import com.example.autos2.entiti.Reservaentiti;
+import com.example.autos2.entiti.dto.ReservaActivaHoyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class ReservaController {
     public Reservaentiti crearReserva(@RequestBody Reservaentiti reserva) {
         return reservaService.guardarReserva(reserva);
     }
-
+    
     @PutMapping("/{id}")
     public Reservaentiti actualizarReserva(@PathVariable Long id, @RequestBody Reservaentiti reserva) {
         reserva.setId(id);
@@ -44,5 +45,10 @@ public class ReservaController {
     @DeleteMapping("/{id}")
     public void eliminarReserva(@PathVariable Long id) {
         reservaService.eliminarReserva(id);
+    }
+
+    @GetMapping("/activas/hoy")
+    public List<ReservaActivaHoyDTO> obtenerReservasActivasHoy() {
+        return reservaService.obtenerReservasActivasHoy();
     }
 }
