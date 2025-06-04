@@ -29,7 +29,12 @@ public class ClienteController {
         );
     }
 
-
+    //Nuevo Metodo Total De Clientes
+    @GetMapping("/total")
+    public ResponseEntity<Long> obtenerTotalClientes() {
+        long total = clienteService.contarClientes();
+        return ResponseEntity.ok(total);
+    }
 
     /*@GetMapping
     public List<Clienteentiti> listarClientes() {

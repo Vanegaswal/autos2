@@ -14,4 +14,7 @@ public interface ICliente  {
 
     //Nuevo Metodo Ordenar Clientes
     List<Clienteentiti> obtenerClientesOrdenadosPorNombre();
+
+    //Nuevo Metodo Contar Clientes
+    long contarClientes();
 }

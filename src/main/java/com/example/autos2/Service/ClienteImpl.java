@@ -44,4 +44,10 @@ public class ClienteImpl implements ICliente {
         return clienteRepository.findAllByOrderByNombreAsc();
     }
 
+    //Nuevo Metodo Contar CLientes
+    @Override
+    public long contarClientes() {
+        return clienteRepository.count();
+    }
+
 }
