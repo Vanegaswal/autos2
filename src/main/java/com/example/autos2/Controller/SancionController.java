@@ -1,8 +1,10 @@
 package com.example.autos2.Controller;
 
+import com.example.autos2.Paidload.MessageResponse;
 import com.example.autos2.Service.ISancion;
 import com.example.autos2.entiti.Sancionentiti;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,15 @@ public class SancionController {
     private ISancion sancionService;
 
     @GetMapping
-    public List<Sancionentiti> listarSanciones() {
-        return sancionService.obtenerTodasLasSanciones();
+    public ResponseEntity<MessageResponse<List<Sancionentiti>>> listarSanciones() {
+        List<Sancionentiti> sanciones = sancionService.obtenerTodasLasSanciones();
+
+        return ResponseEntity.ok(
+                MessageResponse.<List<Sancionentiti>>builder()
+                        .message("Lista de sanciones obtenida exitosamente")
+                        .data(sanciones)
+                        .build()
+        );
     }
 
     @GetMapping("/{id}")

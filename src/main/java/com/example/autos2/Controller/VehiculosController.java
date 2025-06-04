@@ -1,10 +1,12 @@
 package com.example.autos2.Controller;
 
 
+import com.example.autos2.Paidload.MessageResponse;
 import com.example.autos2.Service.IVehiculo;
 import com.example.autos2.entiti.Vehiculosentiti;
 import com.example.autos2.entiti.dto.Vehiculosxmarca;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +20,15 @@ public class VehiculosController {
     private IVehiculo vehiculoService;
 
     @GetMapping
-    public List<Vehiculosentiti> listarVehiculos() {
-        return vehiculoService.obtenerTodosLosVehiculos();
+    public ResponseEntity<MessageResponse<List<Vehiculosentiti>>> listarVehiculos() {
+        List<Vehiculosentiti> vehiculos = vehiculoService.obtenerTodosLosVehiculos();
+
+        return ResponseEntity.ok(
+                MessageResponse.<List<Vehiculosentiti>>builder()
+                        .message("Lista de vehículos obtenida exitosamente")
+                        .data(vehiculos)
+                        .build()
+        );
     }
 
     @GetMapping("/disponibles")

@@ -36,11 +36,6 @@ public class ClienteController {
         return ResponseEntity.ok(total);
     }
 
-    /*@GetMapping
-    public List<Clienteentiti> listarClientes() {
-        return clienteService.obtenerTodosLosClientes();
-    }*/
-
     @GetMapping("/{id}")
     public Optional<Clienteentiti> obtenerCliente(@PathVariable Long id) {
         return clienteService.obtenerClientePorId(id);

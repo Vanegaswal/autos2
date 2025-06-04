@@ -1,8 +1,10 @@
 package com.example.autos2.Controller;
 
+import com.example.autos2.Paidload.MessageResponse;
 import com.example.autos2.Service.IPago;
 import com.example.autos2.entiti.Pagoentiti;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,15 @@ public class PagoController {
     private IPago pagoService;
 
     @GetMapping
-    public List<Pagoentiti> listarPagos() {
-        return pagoService.obtenerTodosLosPagos();
+    public ResponseEntity<MessageResponse<List<Pagoentiti>>> listarPagos() {
+        List<Pagoentiti> pagos = pagoService.obtenerTodosLosPagos();
+
+        return ResponseEntity.ok(
+                MessageResponse.<List<Pagoentiti>>builder()
+                        .message("Lista de pagos obtenida exitosamente")
+                        .data(pagos)
+                        .build()
+        );
     }
 
     @GetMapping("/{id}")
