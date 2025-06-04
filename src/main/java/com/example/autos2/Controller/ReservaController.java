@@ -1,8 +1,10 @@
 package com.example.autos2.Controller;
 
+import com.example.autos2.Paidload.MessageResponse;
 import com.example.autos2.Service.IReserva;
 import com.example.autos2.entiti.Reservaentiti;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,15 @@ public class ReservaController {
     private IReserva reservaService;
 
     @GetMapping
-    public List<Reservaentiti> listarReservas() {
-        return reservaService.obtenerTodasLasReservas();
+    public ResponseEntity<MessageResponse<List<Reservaentiti>>> listarReservas() {
+        List<Reservaentiti> reservas = reservaService.obtenerTodasLasReservas();
+
+        return ResponseEntity.ok(
+                MessageResponse.<List<Reservaentiti>>builder()
+                        .message("Lista de reservas obtenida exitosamente")
+                        .data(reservas)
+                        .build()
+        );
     }
 
     @GetMapping("/{id}")
