@@ -28,6 +28,19 @@ public class SancionController {
         );
     }
 
+    @GetMapping("/ordenadas")
+    public ResponseEntity<MessageResponse<List<Sancionentiti>>> listarSancionesOrdenadas() {
+        List<Sancionentiti> sanciones = sancionService.obtenerSancionesOrdenadas();
+        return ResponseEntity.ok(
+                MessageResponse.<List<Sancionentiti>>builder()
+                        .message("Sanciones ordenadas por fecha descendente")
+                        .data(sanciones)
+                        .build()
+        );
+    }
+
+
+
     @GetMapping("/{id}")
     public Optional<Sancionentiti> obtenerSancion(@PathVariable Long id) {
         return sancionService.obtenerSancionPorId(id);

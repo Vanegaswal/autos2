@@ -12,4 +12,6 @@ public interface ISancion {
     Sancionentiti guardarSancion(Sancionentiti sancion);
     void eliminarSancion(Long id);
     List<Sancionentiti> obtenerSancionesPorCliente(Long clienteId);
+    List<Sancionentiti> obtenerSancionesOrdenadas();
+
 }

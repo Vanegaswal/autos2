@@ -36,6 +36,12 @@ public class SancionImpl implements ISancion {
     }
 
     @Override
+    public List<Sancionentiti> obtenerSancionesOrdenadas() {
+        return sancionRepository.findAllByOrderByFechaDesc();
+    }
+
+
+    @Override
     public List<Sancionentiti> obtenerSancionesPorCliente(Long clienteId) {
         return sancionRepository.findAll().stream()
                 .filter(sancion -> sancion.getCliente() != null && sancion.getCliente().getId().equals(clienteId))
